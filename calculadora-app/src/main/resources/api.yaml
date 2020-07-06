@@ -1,0 +1,83 @@
+openapi: 3.0.0
+info:
+  title: Calculadora API
+  version: '1.0.0'
+  contact:
+    email: aserroukh@atsistemas
+servers:
+  - url: "http://localhost:8000/api"
+    description: "local host"
+paths:
+
+  /calcular:
+    post:
+      summary: operacion aritmética
+      operationId: calcular
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/OperacionAritmetica"
+      responses:
+        200:
+          description: succes
+          content:
+            application/json:
+              schema:
+                type: number
+                example: "193.38"
+        '400':
+          description: >
+            * 'core.error.invalid.input': The request does not contain valid data.
+          content:
+            'application/json;charset=UTF-8':
+              schema:
+                $ref: '#/components/schemas/ErrorInfo'
+
+components:
+  schemas:
+    OperacionAritmetica:
+      type: object
+      required:
+        - operacion
+        - param1
+        - param2
+      properties:
+        operacion:
+          $ref: '#/components/schemas/TipoOperacion'
+        param1:
+          type: number
+          example: "120.38"
+        param2:
+          type: number
+          example: "193.38"
+
+    TipoOperacion:
+      type: string
+      enum:
+        - SUMA
+        - RESTA
+      example: "SUMA"
+
+    Resultado:
+      type: object
+      required:
+        - resultado
+      properties:
+        resultado:
+          type: number
+          example: "193.38"
+
+    ErrorInfo:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          example: "core.error.invalid.input"
+        message:
+          type: string
+          example: "The request does not contain valid data"

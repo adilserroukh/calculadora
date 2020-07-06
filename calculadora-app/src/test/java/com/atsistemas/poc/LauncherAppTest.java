@@ -1,10 +1,12 @@
 package com.atsistemas.poc;
 
+
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class CalculadoraAppApplicationTests {
+class LauncherAppTest {
 
     @Test
     void contextLoads() {
